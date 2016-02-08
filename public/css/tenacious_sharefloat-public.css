@@ -1,0 +1,63 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+.tenacious_sharefloat {
+	position: fixed;
+	left: 0;
+	top: 30%;
+}
+.tenacious_sharefloat a {
+	display: block;
+	padding: 8px;
+}
+
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'social_icons' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-size: 1.2em;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-email:before {
+    content: "\e900";
+}
+.icon-fb_like:before {
+    content: "\e901";
+}
+.icon-fb_share:before {
+    content: "\e902";
+}
+.icon-googleplus:before {
+    content: "\e903";
+}
+.icon-linkedin:before {
+    content: "\e904";
+}
+.icon-pinterest:before {
+    content: "\e905";
+}
+.icon-twitter:before {
+    content: "\e906"; 
+}
+
+@font-face {
+    font-family: 'social_icons';
+    src:    url('fonts/social_icons.eot?wbi4zb');
+    src:    url('fonts/social_icons.eot?wbi4zb#iefix') format('embedded-opentype'),
+        url('fonts/social_icons.ttf?wbi4zb') format('truetype'),
+        url('fonts/social_icons.woff?wbi4zb') format('woff'),
+        url('fonts/social_icons.svg?wbi4zb#social_icons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

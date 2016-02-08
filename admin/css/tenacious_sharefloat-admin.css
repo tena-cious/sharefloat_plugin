@@ -1,0 +1,8 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+ fieldset label > span { 
+ 	width: 200px; 
+ 	display: inline-block;
+ }
