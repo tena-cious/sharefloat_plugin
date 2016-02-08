@@ -7,6 +7,13 @@
 	left: 0;
 	top: 30%;
 }
+
+.tenacious_sharefloat ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 .tenacious_sharefloat a {
 	display: block;
 	padding: 8px;
