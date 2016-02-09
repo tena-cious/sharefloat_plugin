@@ -50,6 +50,11 @@ if(!is_admin() || !is_login_page()) :
     $iconhover = $options['iconhover'];
     // $sideposition = $options['sideposition'];
 
+    // Where to Display
+    $display_posts = $options['display_posts'];
+    $display_nothome = $options['display_nothome'];    
+    // var_dump('display_posts: ' . $display_posts . '; display_nothome: ' . $display_nothome);    
+
     // Counts
     $showshares = $options['showshares'];
     $minshares = $options['minshares'];
@@ -72,15 +77,7 @@ if(!is_admin() || !is_login_page()) :
 	$articletitle = '';
 	$pagethumb = '';
 
-    if(is_single()) {
-	    $articletitle = $post->post_title; 
-    	// var_dump('single: ' . $post->post_title);
-
-		$thumb_id = get_post_thumbnail_id();
-		$thumb_url_array = wp_get_attachment_image_src($thumb_id, 'full-size', true);
-		$pagethumb = $thumb_url_array[0];
-	    // var_dump($pagethumb);   	
-    } elseif(is_page() && !(is_home() || is_front_page())) {
+    if(is_single() || is_page() && !(is_home() || is_front_page())) {
 	    $articletitle = $post->post_title; 
     	// var_dump('page: ' . $post->post_title);
 
@@ -108,6 +105,26 @@ if(!is_admin() || !is_login_page()) :
 		        display: none; 
 		    }
 
+		    <?php 
+		    	// if only displaying on posts pages...
+		    	if($display_posts) { 
+		    		if(!is_single()) { ?>
+					    .tenacious_sharefloat {
+					        display: none; 
+					    }		
+					<?php }    		
+
+		    	// if displaying everyone EXCEPT home page...
+		    	} 
+		    	if($display_nothome) {
+		    		if(is_front_page()) { ?>
+					    .tenacious_sharefloat {
+					        display: none; 
+					    }		
+					<?php }    		
+		    	}
+		    ?>
+
 			.tenacious_sharefloat {
 				background: <?php if(!empty($bgcolor)) { echo $bgcolor; } else { echo '#000'; } ?>;
 			}
@@ -125,7 +142,7 @@ if(!is_admin() || !is_login_page()) :
 			<ul>
 				<?php if(!empty($fblike) && !empty($facebookurl)) : ?>
 					<li>
-						<a href="<?php echo $facebookurl ?>" data-share="fblike" target="_blank"><span aria-hidden="true" class="icon-fb_like"></a>
+						<a href="<?php echo $facebookurl ?>" data-share="fblike" title="Follow on Facebook"  target="_blank"><span aria-hidden="true" class="icon-fb_like"></a>
 					</li>
 				<?php endif; ?>
 				
@@ -154,7 +171,7 @@ if(!is_admin() || !is_login_page()) :
 						    	// var_dump($trackingurl);
 						    }
 						 ?>
-						<a href="https://twitter.com/intent/tweet?text=<?php echo $articletitle; ?>&url=<?php echo $url . $trackingurl; if(!empty($twittername)) { echo '&via=' . $twittername; } ?>" onclick="window.open(this.href,'newWindow','toolbar=no,menubar=no,resizable,width=600,height=400');return false;"><span aria-hidden="true" class="icon-twitter"></span></a></li>
+						<a href="https://twitter.com/intent/tweet?text=<?php echo $articletitle; ?>&url=<?php echo $url . $trackingurl; if(!empty($twittername)) { echo '&via=' . $twittername; } ?>" onclick="window.open(this.href,'newWindow','toolbar=no,menubar=no,resizable,width=600,height=400');return false;" title="Share on Twitter"><span aria-hidden="true" class="icon-twitter"></span></a></li>
 				<?php endif; ?>
 				
 				<?php if(!empty($linkedin)) : ?>
@@ -168,7 +185,7 @@ if(!is_admin() || !is_login_page()) :
 						    	// var_dump($trackingurl);
 						    }
 						 ?>
-						<a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url . $trackingurl; ?>&title=<?php echo $articletitle; ?>&summary=<?php echo get_option( 'blogdescription' ); ?>" data-share="linkedin" onclick="window.open(this.href,'newWindow','toolbar=no,menubar=no,resizable,width=600,height=400');return false;"><span aria-hidden="true" class="icon-linkedin"></span></a></li>
+						<a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo $url . $trackingurl; ?>&title=<?php echo $articletitle; ?>&summary=<?php echo get_option( 'blogdescription' ); ?>" data-share="linkedin" onclick="window.open(this.href,'newWindow','toolbar=no,menubar=no,resizable,width=600,height=400');return false;" title="Share on LinkedIn"><span aria-hidden="true" class="icon-linkedin"></span></a></li>
 				<?php endif; ?>
 				
 				<!-- IS THERE A FEATURED IMAGE?? -->
@@ -184,7 +201,7 @@ if(!is_admin() || !is_login_page()) :
 						    	// var_dump($trackingurl);
 						    }
 						 ?>
-						<a href="https://pinterest.com/pin/create/button/?url=<?php echo $url . $trackingurl; ?>&media=<?php echo $pagethumb; ?>&description=<?php echo $articletitle; ?>" data-share="pinterest" onclick="window.open(this.href,'newWindow','toolbar=no,menubar=no,resizable,width=800,height=400');return false;"><span aria-hidden="true" class="icon-pinterest"></span></a></li>
+						<a href="https://pinterest.com/pin/create/button/?url=<?php echo $url . $trackingurl; ?>&media=<?php echo $pagethumb; ?>&description=<?php echo $articletitle; ?>" data-share="pinterest" onclick="window.open(this.href,'newWindow','toolbar=no,menubar=no,resizable,width=800,height=400');return false;" title="Save on Pinterest"><span aria-hidden="true" class="icon-pinterest"></span></a></li>
 				<?php endif; ?>
 				
 				<?php if(!empty($googleplus)) : ?>
@@ -198,7 +215,7 @@ if(!is_admin() || !is_login_page()) :
 						    	// var_dump($trackingurl);
 						    }
 						 ?>
-						<a href="https://plus.google.com/share?url=<?php echo $url . $trackingurl; ?>" data-share="googleplus" onclick="window.open(this.href,'newWindow','toolbar=no,menubar=no,resizable,width=600,height=400');return false;"><span aria-hidden="true" class="icon-googleplus"></span></a></li>
+						<a href="https://plus.google.com/share?url=<?php echo $url . $trackingurl; ?>" data-share="googleplus" onclick="window.open(this.href,'newWindow','toolbar=no,menubar=no,resizable,width=600,height=400');return false;" title="Share on Google+"><span aria-hidden="true" class="icon-googleplus"></span></a></li>
 				<?php endif; ?>
 				
 				<?php if(!empty($email)) : ?>
@@ -212,7 +229,7 @@ if(!is_admin() || !is_login_page()) :
 						    	// var_dump($trackingurl);
 						    }
 						 ?>
-						<a href="mailto:?&subject=I think you'll enjoy this!&body=Check%20out%20this%20link%20%C2%BB%20<?php echo $articletitle; ?>%20<?php echo $url . $trackingurl; ?>" data-share="email"><span aria-hidden="true" class="icon-email"></span></a></li>
+						<a href="mailto:?&subject=I think you'll enjoy this!&body=Check%20out%20this%20link%20%C2%BB%20<?php echo $articletitle; ?>%20<?php echo $url . $trackingurl; ?>" data-share="email" title="Email to a Friend"><span aria-hidden="true" class="icon-email"></span></a></li>
 				<?php endif; ?>
 			</ul>
 

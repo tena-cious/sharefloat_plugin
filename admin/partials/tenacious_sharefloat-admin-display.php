@@ -38,6 +38,12 @@
             $iconhover = $options['iconhover'];
             // $sideposition = $options['sideposition'];
 
+            // Where to Display
+            $display_posts = $options['display_posts'];
+            $display_nothome = $options['display_nothome'];
+
+            // var_dump('display_posts: ' . $display_posts . '; display_nothome: ' . $display_nothome);    
+
             // Counts
             $showshares = $options['showshares'];
             $minshares = $options['minshares'];
@@ -142,6 +148,28 @@
             </tr>
 
             <tr>
+                <th scope="row">Placement:</th>
+                <td>
+                    <fieldset>
+                        <ul>
+                            <li>
+                                <label for="<?php echo $this->plugin_name; ?>-display_posts">
+                                    <input type="checkbox" id="<?php echo $this->plugin_name; ?>-display_posts" name="<?php echo $this->plugin_name; ?>[display_posts]" value="1" <?php checked( $display_posts, 1 ) ?> />
+                                    <span><?php esc_attr_e( 'Only on Posts', $this->plugin_name ); ?></span>
+                                </label>
+                            </li>
+                            <li>
+                                <label for="<?php echo $this->plugin_name; ?>-display_nothome">
+                                    <input type="checkbox" id="<?php echo $this->plugin_name; ?>-display_nothome" name="<?php echo $this->plugin_name; ?>[display_nothome]" value="1" <?php checked( $display_nothome, 1 ) ?> />
+                                    <span style="width: 300px;"><?php esc_attr_e( 'Hide on Homepage', $this->plugin_name ); ?></span>
+                                </label>
+                            </li>
+                        </ul>
+                    </fieldset>
+                </td>
+            </tr>
+
+            <tr>
                 <th scope="row">Additional settings:</th>
                 <td>
                     <fieldset>
@@ -181,15 +209,6 @@
             </tr> -->
         </table>
 
-
-
-<!--         <p><strong>Display rules:</strong></p>
-        <ul>
-            <li><label for="showrules">Where should this appear?</label><br>
-                <input type="radio" name="showrules" value="every" checked> Every Page<br>
-                <input type="radio" name="showrules" value="postonly"> On Posts Only<br>
-        </ul>
- -->
 
         <fieldset style="display: none;">
             <legend><strong>Sharing counts:</strong></legend>

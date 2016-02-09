@@ -165,6 +165,10 @@ class Tenacious_sharefloat_Admin {
 	    $valid['iconhover'] = esc_textarea($input['iconhover']);
 	    // $valid['sideposition'] = (isset($input['sideposition']) && !empty($input['sideposition'])) ? 1 : 0;
 
+	    // Where to display on site - whole site, posts only, all pages & posts except home page
+	    $valid['display_posts'] = (isset($input['display_posts']) && !empty($input['display_posts'])) ? 1 : 0;
+	    $valid['display_nothome'] = (isset($input['display_nothome']) && !empty($input['display_nothome'])) ? 1 : 0;
+
         // Counts
         $valid['showshares'] = (isset($input['showshares']) && !empty($input['showshares'])) ? 1 : 0;
         $valid['minshares'] = esc_textarea($input['minshares']);
